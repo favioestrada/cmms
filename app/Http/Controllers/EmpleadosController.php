@@ -14,7 +14,9 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        //
+        
+        $datos['empleados']=Empleados::paginate(5);
+        return view('empleados.index',$datos);
     }
 
     /**
@@ -24,7 +26,7 @@ class EmpleadosController extends Controller
      */
     public function create()
     {
-        //
+        return view('empleados.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class EmpleadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$datosEmpleado =request()->all();
+        $datosEmpleado=request()->except('_token');
+        if ($request->hasFile('Foto')) {
+            $datosEmpleado['Foto']=$request->file('Foto')->store('uploads','public');
+        }
+
+        //Insert
+        Empleados::insert($datosEmpleado);
+        return response()->json($datosEmpleado);
     }
 
     /**
@@ -57,7 +67,7 @@ class EmpleadosController extends Controller
      */
     public function edit(Empleados $empleados)
     {
-        //
+        return view('empleados.edit');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-//use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,20 +12,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/',function() {
+    return view('welcome');
+});
 /*
-$portfolio =[ 
-    ['title'=>'Proyecto #1'],
-    ['title'=>'Proyecto #2'],
-    ['title'=>'Proyecto #3'],
-    ['title'=>'Proyecto #4'],
-
-];
+Route::get('/empleados','EmpleadosController@index');
+Route::get('empleados/create','EmpleadosController@create');
 */
-Route::view('/','home')->name('home');
-Route::view('/about','about')->name('about');
-//Route::get('/portfolio','PortfolioController@index')->name('portfolio');
-Route::view('/contact','contact')->name('contact');
-Route::get('/portfolio','PortfolioController');
-//Route::resource('projects','PortfolioController')->except(['index','show']);
 
-
+Route::resource('empleados', 'EmpleadosController');
